@@ -1,4 +1,6 @@
-# Folder Structure
+# Cox proportional hazards model and Kaplan-Meier Plots
+
+In this folder, the following tasks are performed:
 
 **preprocess.py**: 
 
@@ -18,3 +20,14 @@ and marks the median survival point.
 **cox_kaplan_analysis.ipynb**: 
 
 The primary research notebook documenting the end-to-end workflow, from data preprocessing (missing value imputation, variance filtering) to Kaplan-Meier visualization and statistical testing.
+
+## Setup
+
+### Requirements
+- Python 3.x
+- `numpy`, `pandas`, `pyyaml`, `matplotlib`, `lifelines`
+
+Install dependencies (example):
+```bash
+pip install numpy pandas pyyaml matplotlib lifelines
+```
