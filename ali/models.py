@@ -195,6 +195,23 @@ def fit_gridsearch_and_evaluate(
             n_jobs=n_jobs,
             refit=True,
         )
+        # sanity check to prevent silent label-feature misalignment
+        if len(X_train) != len(y_train):
+            raise ValueError(
+                f"[{name}] X_train and y_train length mismatch: {len(X_train)} vs {len(y_train)}"
+            )
+        if len(X_test) != len(y_test):
+            raise ValueError(
+                f"[{name}] X_test and y_test length mismatch: {len(X_test)} vs {len(y_test)}"
+            )
+
+        # If pandas objects, also enforce index alignment
+        if hasattr(X_train, "index") and hasattr(y_train, "index"):
+            if not X_train.index.equals(y_train.index):
+                raise ValueError(f"[{name}] X_train and y_train indices are not aligned.")
+        if hasattr(X_test, "index") and hasattr(y_test, "index"):
+            if not X_test.index.equals(y_test.index):
+                raise ValueError(f"[{name}] X_test and y_test indices are not aligned.")
 
         grid.fit(X_train, y_train)
         best_clf = grid.best_estimator_
